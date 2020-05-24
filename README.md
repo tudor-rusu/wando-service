@@ -12,7 +12,6 @@ The scope of the project is about to highlight Oriented Object Programming conce
 * nginx alpine
 * Composer
 * Phpunit
-* Bootstrap 4
 
 #### Design patterns
 * Singleton
