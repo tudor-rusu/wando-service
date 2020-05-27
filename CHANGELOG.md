@@ -1,3 +1,15 @@
+## [0.3.0] - 2020-05-27
+
+### Added
+- abstractions
+- components
+- controllers
+
+### Modified
+- CHANGELOG.md
+- index.php
+- .env
+
 ## [0.2.0] - 2020-05-27
 
 ### Added
