@@ -30,6 +30,10 @@ then
   rm /tmp/$PROJECT_URL* # remove all temporary files
 fi
 
+echo -en "\n"
+echo "${BLU}Run in ${PROJECT} container composer install${RESET}"
+docker container exec -it $PROJECT-app composer install
+
 # show the final result
 listString=("$projectUrl")
 drawResult "${listString}"
