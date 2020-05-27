@@ -1,3 +1,13 @@
+## [0.2.0] - 2020-05-27
+
+### Added
+- composer
+- phpunit
+
+### Modified
+- CHANGELOG.md
+- run.sh
+
 ## [0.1.1] - 2020-05-27
 
 ### Modified
