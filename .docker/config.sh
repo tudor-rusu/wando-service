@@ -17,7 +17,7 @@ while true; do
     esac
 done
 
-source .env # get configuration file
+source src/.env # get configuration file
 projectName=$PROJECT_NAME
 projectUrl=$PROJECT_URL
 
@@ -28,7 +28,7 @@ then
     case $yn in
         [Yy]* )
           read -rp "Enter project name (use '-' instead 'space' between words): " newProjectName;
-          replaceFileRow .env "PROJECT_NAME" "PROJECT_NAME='$newProjectName'";
+          replaceFileRow src/.env "PROJECT_NAME" "PROJECT_NAME='$newProjectName'";
           projectName=$newProjectName
           break;;
         [Nn]* ) break;;
@@ -40,7 +40,7 @@ then
     case $yn in
         [Yy]* )
           read -rp "Enter project URL (use '-' instead 'space' between words): " newProjectURL;
-          replaceFileRow .env "PROJECT_URL" "PROJECT_URL='$newProjectURL'";
+          replaceFileRow src/.env "PROJECT_URL" "PROJECT_URL='$newProjectURL'";
           projectUrl=$newProjectURL
           break;;
         [Nn]* ) break;;

@@ -4,7 +4,7 @@ set -e
 
 # include global vars and functions repository
 source .docker/functions.sh
-source .env # get configuration file
+source src/.env # get configuration file
 projectUrl=""
 
 # build and deploy nginx

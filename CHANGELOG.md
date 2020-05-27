@@ -1,3 +1,9 @@
+## [0.1.1] - 2020-05-27
+
+### Modified
+- CHANGELOG.md and README.md
+- .env location
+
 ## [0.1.0] - 2020-05-24
 
 ### Added

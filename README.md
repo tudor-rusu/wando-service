@@ -43,9 +43,9 @@ Before start install, user will need:
 ```shell script
 git clone https://github.com/tudor-rusu/wando-service.git ${PROJECT_ROOT}
 ```
-* Copy and adjust environmental settings in the root of the project, assumed `${PROJECT_ROOT}`:
+* Copy and adjust environmental settings in the root of the project, assumed `${PROJECT_ROOT}/src`:
 ```shell script
-cd ${PROJECT_ROOT}
+cd ${PROJECT_ROOT}/src
 cp .env.dist .env
 ```
 * Run the `sh` script which deploy Docker environment
