@@ -21,6 +21,13 @@ abstract class Model extends Base
     abstract static function create();
 
     /**
+     * Find and return all model data
+     *
+     * @param array $params
+     */
+    abstract static function find(array $params);
+
+    /**
      * Validate the model
      */
     abstract function validate();

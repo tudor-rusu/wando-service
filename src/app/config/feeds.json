@@ -12,35 +12,7 @@
       "GLOBAL-ID": "EBAY-DE"
     }
   },
-  "sears": {
-    "apiPath": "",
-    "requestType": "",
-    "credentials": {},
-    "headers": {},
-    "params": {}
-  },
-  "wayfair": {
-    "apiPath": "",
-    "requestType": "",
-    "credentials": {},
-    "headers": {},
-    "params": {}
-  },
-  "target": {
-    "apiPath": "",
-    "requestType": "",
-    "credentials": {},
-    "headers": {},
-    "params": {}
-  },
   "amazon": {
-    "apiPath": "",
-    "requestType": "",
-    "credentials": {},
-    "headers": {},
-    "params": {}
-  },
-  "zappos": {
     "apiPath": "",
     "requestType": "",
     "credentials": {},
