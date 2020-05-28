@@ -9,6 +9,10 @@ use Exception;
  */
 abstract class Controller extends Base
 {
+    /**
+     * @var array
+     */
+    public $config = [];
 
     /**
      * Method that call the action of a controller

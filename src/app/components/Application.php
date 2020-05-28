@@ -84,6 +84,7 @@ class Application extends BaseApplication
 
         $controller = ControllerFactory::create($router->getControllerName());
         $this->setController($controller);
+        $this->controller->config = $this->_config;
     }
 
     /**
