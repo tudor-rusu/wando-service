@@ -1,3 +1,15 @@
+## [0.3.2] - 2020-05-28
+
+### Added
+- api trait
+
+### Modified
+- CHANGELOG.md
+- feeds.json
+- Model abstract
+- Service Controller
+- models
+
 ## [0.3.1] - 2020-05-28
 
 ### Added
