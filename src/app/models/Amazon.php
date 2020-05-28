@@ -9,7 +9,7 @@ use Exception;
 class Amazon extends ModelBase
 {
     /**
-     * Create Ebay model
+     * Create Amazon model
      *
      * @return mixed
      * @throws Exception
@@ -17,6 +17,24 @@ class Amazon extends ModelBase
     public static function create()
     {
         return ModelFactory::create('Amazon');
+    }
+
+    /**
+     * Find and return results from feed
+     *
+     * @param array $params
+     *
+     * @return string
+     */
+    public static function find(array $params)
+    {
+        $myName = explode('\\', __CLASS__);
+        $params['provider'] = strtolower(array_pop($myName));
+
+        // TODO connect to API
+        // TODO get collection
+
+        return [];
     }
 
     /**
