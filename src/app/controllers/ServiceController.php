@@ -16,6 +16,7 @@ class ServiceController extends BaseController
     public function actionIndex()
     {
         echo 'service developing ...';
+        // TODO get type and model
     }
 
 }
