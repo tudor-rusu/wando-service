@@ -3,9 +3,89 @@
 namespace app\traits;
 
 use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\ResponseInterface;
+use function Couchbase\defaultDecoder;
 
 trait ApiTrait
 {
+
+    /**
+     * Connect to API by Guzzle Http
+     *
+     * @param string $requestMethod
+     * @param string $apiUrl
+     * @param array  $params
+     *
+     * @return ResponseInterface
+     * @throws GuzzleException
+     */
+    public static function connectApiGuzzle(string $requestMethod, string $apiUrl, array $params)
+    {
+        $client = new Client();
+
+        if ($requestMethod === 'GET') {
+            $response = $client->request('GET', $apiUrl, [
+                'query' => $params
+            ]);
+        } else {
+            $response = $client->request('POST', $apiUrl, [
+                'form_params' => $params
+            ]);
+        }
+
+        return $response;
+    }
+
+    public static function connectApiXml(array $params)
+    {
+        try {
+            $buildApiCall = $params['apiPath'] . '?';
+            foreach ($params['params'] as $key => $value) {
+                $buildApiCall .= "$key=$value&";
+            }
+            $buildApiCall = substr($buildApiCall, 0, -1);
+            $buildApiCall .= '&keywords=' . $params['keywords'];
+            if ($params['filters'] && count($params['filters']) > 0) {
+                $count = 0;
+                foreach ($params['filters'] as $filter => $value) {
+                    $buildApiCall .= "&itemFilter($count).name=$filter";
+                    $buildApiCall .= "&itemFilter($count).value=$value";
+                    $count++;
+                }
+            }
+            if (!empty($params['sorting'])) {
+                $buildApiCall .= '&sorting=' . $params['sorting'];
+            }
+            if (!empty($params['pagination']['pageNumber'])) {
+                $buildApiCall .= '&paginationInput.pageNumber=' . $params['pagination']['pageNumber'];
+                $buildApiCall .= '&paginationInput.entriesPerPage=' . $params['pagination']['itemsPerPage'];
+            }
+
+            $apiResponse = simplexml_load_file($buildApiCall);
+
+            if ($apiResponse->ack != "Success") {
+                throw new Exception('The request was not successful.');
+            }
+
+            // set currency
+            foreach ($apiResponse->searchResult->item as $key => $item) {
+                $currency = $item->sellingStatus->currentPrice['currencyId'];
+                $item->addChild('currency', $currency);
+            }
+
+            return [
+                'resolution' => 'success',
+                'data'       => json_decode(json_encode((array)$apiResponse), true)
+            ];
+        } catch (Exception $exception) {
+            return [
+                'resolution' => 'error',
+                'data'       => ['exception' => $exception->getMessage()]
+            ];
+        }
+    }
 
     /**
      * Return list with all APIs from config
@@ -95,6 +175,4 @@ trait ApiTrait
 
         return null;
     }
-
-
 }

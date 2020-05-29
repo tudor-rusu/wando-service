@@ -12,7 +12,7 @@ abstract class Base
     /**
      * @var array
      */
-    private $data = [];
+    protected $data = [];
 
     /**
      * Debug any object

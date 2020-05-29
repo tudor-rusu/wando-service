@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\components\abstractions\Controller as BaseController;
 use app\components\abstractions\ModelFactory;
 use app\traits\ApiTrait;
+use app\traits\ValidationTrait;
 use Exception;
 
 /**
@@ -12,7 +13,7 @@ use Exception;
  */
 class ServiceController extends BaseController
 {
-    use ApiTrait;
+    use ApiTrait, ValidationTrait;
 
     public $feed = 'all';
 
@@ -24,22 +25,48 @@ class ServiceController extends BaseController
     public function actionIndex()
     {
         $feed = $_REQUEST['feed'] ?
-            strtolower(filter_var(trim($_REQUEST['feed']), FILTER_SANITIZE_STRING)) :
+            strtolower(self::sanitizeString($_REQUEST['feed'])) :
             $this->feed;
 
         try {
+            $dataCollection = [];
             if ($feed !== $this->feed) {
                 $apiParams = self::getApiParams($feed);
                 if ($apiParams['resolution'] === 'error') {
                     throw new Exception($apiParams['data']['exception']);
                 }
-                $feedModel = ModelFactory::create($feed);
-//                $feedModel::find(self::getApiParams($feed));
+
+                // set keywords
+                $apiParams['data']['keywords'] = ($_REQUEST['keywords']) ?
+                    strtolower(urlencode(self::sanitizeString($_REQUEST['keywords']))) : '';
+
+                // set filters
+                $apiParams['data']['filters']['MinPrice'] = ($_REQUEST['price_min']) ?
+                    self::sanitizeString($_REQUEST['price_min']) : '';
+                $apiParams['data']['filters']['MaxPrice'] = ($_REQUEST['price_max']) ?
+                    self::sanitizeString($_REQUEST['price_max']) : '';
+
+                // set sorting
+                // applicable values https://developer.ebay.com/DevZone/finding/CallRef/extra/fnditmsbykywrds.rqst.srtordr.html
+                $sanitizeSorting              = ($_REQUEST['sorting']) ?
+                    self::sanitizeString($_REQUEST['sorting']) : '';
+                $apiParams['data']['sorting'] = ($sanitizeSorting !== 'default') ?
+                    $sanitizeSorting : '';
+
+                // set pagination
+                $apiParams['data']['pagination']['pageNumber']   = ($_REQUEST['page_number']) ?
+                    self::sanitizeString($_REQUEST['page_number']) : '';
+                $apiParams['data']['pagination']['itemsPerPage'] = ($_REQUEST['items_per_page']) ?
+                    self::sanitizeString($_REQUEST['items_per_page']) : '';
+
+                $feedModel      = ModelFactory::create($feed);
+                $dataCollection = $feedModel::find($apiParams['data']);
+
                 http_response_code(200);
                 echo json_encode([
                     'resolution' => 'success',
                     'message'    => '',
-                    'data'       => $feedModel::find($apiParams['data'])
+                    'data'       => $dataCollection['data']
                 ]);
             } else {
                 $allApiList = self::getAllApi();
