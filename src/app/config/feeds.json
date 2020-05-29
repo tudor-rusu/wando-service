@@ -3,7 +3,7 @@
     "apiPath": "https://svcs.sandbox.ebay.com/services/search/FindingService/v1",
     "requestType": "GET",
     "credentials": {
-      "SECURITY-APPNAME": ""
+      "SECURITY-APPNAME": "WandoInt-217b-42d8-a699-e79808dd505e"
     },
     "headers": {},
     "params": {

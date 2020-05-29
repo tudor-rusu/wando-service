@@ -22,13 +22,13 @@ class Amazon extends ModelBase
     /**
      * Find and return results from feed
      *
-     * @param array $params
+     * @param $params
      *
-     * @return string
+     * @return array
      */
-    public static function find(array $params)
+    public static function find($params)
     {
-        $myName = explode('\\', __CLASS__);
+        $myName             = explode('\\', __CLASS__);
         $params['provider'] = strtolower(array_pop($myName));
 
         // TODO connect to API

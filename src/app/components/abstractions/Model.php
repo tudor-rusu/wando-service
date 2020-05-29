@@ -25,7 +25,7 @@ abstract class Model extends Base
      *
      * @param array $params
      */
-    abstract static function find(array $params);
+    abstract static function find($params);
 
     /**
      * Validate the model

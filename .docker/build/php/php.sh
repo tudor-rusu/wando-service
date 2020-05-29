@@ -25,7 +25,7 @@ while true; do
     case $yn in
         [Yy]* )
           read -rp "Enter PHP version: " newPhpVersion;
-          replaceFileRow ./docker.conf "PHP_VERSION" "PHP_VERSION='$newPhpVersion'";
+          replaceFileRow src/.env "PHP_VERSION" "PHP_VERSION='$newPhpVersion'";
           replaceAllInFile .docker/build/php/Dockerfile php-version $newPhpVersion
           phpVersion=$newPhpVersion
           break;;

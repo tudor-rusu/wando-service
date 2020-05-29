@@ -6,7 +6,6 @@ use app\components\abstractions\Model as ModelBase;
 use app\components\abstractions\ModelFactory;
 use app\traits\ApiTrait;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 
 class Ebay extends ModelBase
 {
@@ -44,12 +43,12 @@ class Ebay extends ModelBase
     /**
      * Find and return results from feed
      *
-     * @param array $params
+     * @param $params
      *
      * @return array
      * @throws Exception
      */
-    public static function find(array $params)
+    public static function find($params)
     {
         $myName             = explode('\\', __CLASS__);
         $params['provider'] = strtolower(array_pop($myName));
@@ -67,7 +66,7 @@ class Ebay extends ModelBase
             }
 
             $dataCollection = [];
-            if($apiRequest['data']['paginationOutput']['totalEntries'] > 0) {
+            if ($apiRequest['data']['paginationOutput']['totalEntries'] > 0) {
                 $model = ModelFactory::create('Ebay');
                 $model->loadAttributes($model->attributes);
 

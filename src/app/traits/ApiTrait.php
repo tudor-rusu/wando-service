@@ -6,7 +6,6 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
-use function Couchbase\defaultDecoder;
 
 trait ApiTrait
 {
@@ -14,14 +13,14 @@ trait ApiTrait
     /**
      * Connect to API by Guzzle Http
      *
-     * @param string $requestMethod
-     * @param string $apiUrl
-     * @param array  $params
+     * @param $requestMethod
+     * @param $apiUrl
+     * @param $params
      *
      * @return ResponseInterface
      * @throws GuzzleException
      */
-    public static function connectApiGuzzle(string $requestMethod, string $apiUrl, array $params)
+    public static function connectApiGuzzle($requestMethod, $apiUrl, $params)
     {
         $client = new Client();
 
@@ -38,7 +37,12 @@ trait ApiTrait
         return $response;
     }
 
-    public static function connectApiXml(array $params)
+    /**
+     * @param $params
+     *
+     * @return array
+     */
+    public static function connectApiXml($params)
     {
         try {
             $buildApiCall = $params['apiPath'] . '?';
@@ -162,12 +166,12 @@ trait ApiTrait
     /**
      * Check if feed exist in configuration
      *
-     * @param string $feedName
-     * @param array  $feedConfig
+     * @param $feedName
+     * @param $feedConfig
      *
      * @return bool|null
      */
-    private static function feedExist(string $feedName, array $feedConfig)
+    private static function feedExist($feedName, $feedConfig)
     {
         if (array_key_exists($feedName, $feedConfig)) {
             return true;
