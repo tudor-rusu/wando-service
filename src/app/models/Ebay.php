@@ -66,6 +66,7 @@ class Ebay extends ModelBase
                 throw new Exception($apiRequest['data']);
             }
 
+            $dataCollection = [];
             if($apiRequest['data']['paginationOutput']['totalEntries'] > 0) {
                 $model = ModelFactory::create('Ebay');
                 $model->loadAttributes($model->attributes);
